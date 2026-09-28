@@ -258,7 +258,7 @@ def _choose_second_column(mo, NUMERIC_COLUMNS):
     """
     x_column = mo.ui.dropdown(
         options=NUMERIC_COLUMNS,
-        value="flipper_length_mm",
+        value="bill_length_mm",
         label="X variable",
     )
 

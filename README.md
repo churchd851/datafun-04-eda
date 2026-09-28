@@ -53,6 +53,8 @@ and create your own project to explore a tabular dataset.
 
 This project produces the same EDA work in several useful forms.
 
+Produces a scatterplot comparing penguin bill length to body mass
+
 - [**Reactive EDA App (marimo)**](https://denisecase.github.io/datafun-04-eda/app/)
   - run the analysis interactively in a browser
 

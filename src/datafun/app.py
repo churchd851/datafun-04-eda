@@ -125,7 +125,7 @@ CATEGORICAL_COLUMNS: Final[list[str]] = [
 
 # === CHOOSE ONE RELATIONSHIP TO EXPLORE ===
 
-X_COLUMN: Final[str] = "flipper_length_mm"
+X_COLUMN: Final[str] = "bill_length_mm"
 Y_COLUMN: Final[str] = "body_mass_g"
 
 
@@ -287,8 +287,8 @@ def main() -> None:
     )
 
     # CUSTOM: Analyst must customize the Matplotlib Axes object with a title and axis labels.
-    relationship_ax.set_title("Penguin Flipper Length vs. Body Mass")
-    relationship_ax.set_xlabel("Flipper Length (mm)")
+    relationship_ax.set_title("Penguin Bill Length vs. Body Mass")
+    relationship_ax.set_xlabel("Bill Length (mm)")
     relationship_ax.set_ylabel("Body Mass (g)")
 
     save_chart(
@@ -310,7 +310,7 @@ def main() -> None:
     Some observations (rows) are complete, but some are missing values.
 
     I reviewed the relationship between:
-    Flipper length vs. body mass
+    Bill length vs. body mass
     and it shows a positive relationship.
 
     Based on this EDA, I would next like to review additional
