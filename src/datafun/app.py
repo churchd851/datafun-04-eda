@@ -65,6 +65,7 @@ from eda_vizkit import (
     show_numeric_relationship,
 )
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
 from datafun.utils_eda import (
@@ -290,6 +291,19 @@ def main() -> None:
     relationship_ax.set_title("Penguin Bill Length vs. Body Mass")
     relationship_ax.set_xlabel("Bill Length (mm)")
     relationship_ax.set_ylabel("Body Mass (g)")
+
+    # --- trend line ---
+    x_data = df[X_COLUMN].dropna()
+    y_data = df[Y_COLUMN].dropna()
+    x_data = x_data[x_data.index.isin(y_data.index)]
+    y_data = y_data[x_data.index]
+    slope, intercept = np.polyfit(x_data, y_data, 1)
+    relationship_ax.plot(
+        x_data,
+        slope * x_data + intercept,
+        color="red",
+        linestyle="--",
+    )
 
     save_chart(
         relationship_ax,

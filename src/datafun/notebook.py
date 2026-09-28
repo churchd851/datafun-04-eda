@@ -120,6 +120,7 @@ async def _():
         show_numeric_relationship,
     )
     import marimo as mo
+    import numpy as np
     import pandas as pd
 
     DATASET_NAME = "penguins"
@@ -136,6 +137,7 @@ async def _():
         NUMERIC_COLUMNS,
         mo,
         pd,
+        np,  # ← add this
         show_numeric_distribution,
         show_numeric_relationship,
         sys,
@@ -286,13 +288,8 @@ def _choose_second_column(mo, NUMERIC_COLUMNS):
 
 
 @app.cell
-def _show_relationship(df, show_numeric_relationship, x_column, y_column):
-    """Plot the relationship between the selected X and Y columns.
-
-    Depends on `x_column` and `y_column` (the user's choices) plus `df` and
-    the helper. Consumes controls rather than creating them, so it reruns and
-    re-renders whenever either selection changes.
-    """
+def _show_relationship(df, show_numeric_relationship, x_column, y_column, np):
+    """Plot the relationship between the selected X and Y columns."""
     relationship_ax = show_numeric_relationship(
         df,
         x=x_column.value,
@@ -300,6 +297,19 @@ def _show_relationship(df, show_numeric_relationship, x_column, y_column):
     )
 
     relationship_ax.set_title(f"{y_column.value} by {x_column.value}")
+
+    # --- trend line ---
+    x_data = df[x_column.value].dropna()
+    y_data = df[y_column.value].dropna()
+    x_data = x_data[x_data.index.isin(y_data.index)]
+    y_data = y_data[x_data.index]
+    slope, intercept = np.polyfit(x_data, y_data, 1)
+    relationship_ax.plot(
+        x_data,
+        slope * x_data + intercept,
+        color="red",
+        linestyle="--",
+    )
 
     # display it
     relationship_ax
